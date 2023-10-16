@@ -1,4 +1,4 @@
-package com.alura.foro.domain;
+package com.alura.foro.domain.curso;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,4 +25,7 @@ public class Curso {
         this.categoria = categoria;
     }
 
+    public Curso(Long id) {
+
+    }
 }

@@ -1,4 +1,4 @@
-package com.alura.foro.domain;
+package com.alura.foro.domain.usuario;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,4 +22,7 @@ public class Usuario {
     @Column(name = "contraseña")
     private String contrasena;
 
+    public Usuario(Long id) {
+        this.id = id;
+    }
 }

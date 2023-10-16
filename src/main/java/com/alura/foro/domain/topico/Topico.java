@@ -1,5 +1,8 @@
-package com.alura.foro.domain;
+package com.alura.foro.domain.topico;
 
+import com.alura.foro.domain.Respuesta;
+import com.alura.foro.domain.curso.Curso;
+import com.alura.foro.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,10 +36,10 @@ public class Topico {
     @OneToMany(mappedBy = "topico")
     private List<Respuesta> respuestas = new ArrayList<>();
 
-    public Topico(String titulo, String mensaje, Curso curso) {
+    public Topico(String titulo, String mensaje, Usuario autor, Curso curso) {
         this.titulo = titulo;
         this.mensaje = mensaje;
+        this.autor = autor;
         this.curso = curso;
     }
-
 }

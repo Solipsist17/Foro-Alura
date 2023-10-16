@@ -1,5 +1,7 @@
 package com.alura.foro.domain;
 
+import com.alura.foro.domain.topico.Topico;
+import com.alura.foro.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
