@@ -28,6 +28,7 @@ public class TopicoService {
         this.topicValidators = topicValidators;
     }
 
+    // no se pueden registrar topicos con autor o curso inexistentes, ni con titulo y mensaje repetido
     public Topico registrar(RegistrarTopicoDTO datos) {
         if (!usuarioRepository.existsById(datos.idAutor())) {
             throw new IntegrityValidation("Este id para el autor no fue encontrado");
@@ -53,6 +54,19 @@ public class TopicoService {
 
     public ListadoTopicoDTO obtener(Long id) {
         return new ListadoTopicoDTO(topicoRepository.getReferenceById(id));
+    }
+
+    // no se pueden actualizar topicos con titulo y mensaje repetido
+    public RespuestaTopicoDTO actualizar(ActualizarTopicoDTO datos) {
+        var topico = topicoRepository.getReferenceById(datos.id());
+
+        // si se cambia el título o mensaje entonces validaremos
+        if (!datos.titulo().equals(topico.getTitulo()) || !datos.mensaje().equals(topico.getMensaje())) {
+            topicValidators.forEach(v -> v.validar(datos));
+        }
+        topico.actualizarDatos(datos);
+
+        return new RespuestaTopicoDTO(topico);
     }
 
 }

@@ -42,4 +42,10 @@ public class Topico {
         this.autor = autor;
         this.curso = curso;
     }
+
+    public void actualizarDatos(ActualizarTopicoDTO actualizarTopicoDTO) {
+        this.titulo = actualizarTopicoDTO.titulo();
+        this.mensaje = actualizarTopicoDTO.mensaje();
+        this.status = actualizarTopicoDTO.status();
+    }
 }

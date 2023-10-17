@@ -1,6 +1,7 @@
 package com.alura.foro.controllers;
 
 import com.alura.foro.domain.topico.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,13 @@ public class TopicoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ListadoTopicoDTO> detallar(@PathVariable Long id) {
-        return ResponseEntity.ok(topicoService.obtener(id));
+        return ResponseEntity.ok(topicoService.obtener(id)); // code 200
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<RespuestaTopicoDTO> actualizar(@RequestBody @Valid ActualizarTopicoDTO actualizarTopicoDTO) {
+        return ResponseEntity.ok(topicoService.actualizar(actualizarTopicoDTO)); // code 200
     }
 
 }
