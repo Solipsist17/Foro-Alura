@@ -3,7 +3,8 @@ package com.alura.foro.domain.topico;
 import com.alura.foro.domain.curso.CursoRepository;
 import com.alura.foro.domain.topico.validations.TopicValidator;
 import com.alura.foro.domain.usuario.UsuarioRepository;
-import com.alura.foro.infra.errors.IntegrityValidation;
+import com.alura.foro.infra.errors.exceptions.IntegrityValidation;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,6 +68,15 @@ public class TopicoService {
         topico.actualizarDatos(datos);
 
         return new RespuestaTopicoDTO(topico);
+    }
+
+    public void eliminar(Long id) {
+        if (!topicoRepository.existsById(id)) {
+            throw new EntityNotFoundException("Este id para el topico no fue encontrado");
+        }
+
+        var topico = topicoRepository.getReferenceById(id);
+        topicoRepository.delete(topico);
     }
 
 }
