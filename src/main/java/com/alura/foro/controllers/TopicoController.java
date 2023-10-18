@@ -55,7 +55,7 @@ public class TopicoController {
     @Transactional
     public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id) {
         topicoService.eliminar(id);
-        return ResponseEntity.ok().build(); // status code 204
+        return ResponseEntity.noContent().build(); // status code 204
     }
 
 }
