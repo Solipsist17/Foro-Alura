@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Configuración de Spring Security: tipo, rutas, encriptado
+ * Configuración de Spring Security: tipo (stateless, stateful), rutas protegidas, encriptado
  */
 
 @Configuration

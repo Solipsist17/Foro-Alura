@@ -1,4 +1,4 @@
-package com.alura.foro.domain;
+package com.alura.foro.domain.respuesta;
 
 import com.alura.foro.domain.topico.Topico;
 import com.alura.foro.domain.usuario.Usuario;
@@ -28,4 +28,9 @@ public class Respuesta {
     private Usuario autor;
     private Boolean solucion = false;
 
+    public Respuesta(String mensaje, Topico topico, Usuario autor) {
+        this.mensaje = mensaje;
+        this.topico = topico;
+        this.autor = autor;
+    }
 }
