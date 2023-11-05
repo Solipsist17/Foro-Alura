@@ -29,9 +29,8 @@ public class TopicoController {
     @PostMapping
     public ResponseEntity<RespuestaTopicoDTO> registrar(@RequestBody @Valid RegistrarTopicoDTO registrarTopicoDTO,
                                                         UriComponentsBuilder uriComponentsBuilder) {
-        Topico topicoCreado = topicoService.registrar(registrarTopicoDTO);
-        RespuestaTopicoDTO respuestaTopicoDTO = new RespuestaTopicoDTO(topicoCreado);
-        URI uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topicoCreado.getId()).toUri();
+        RespuestaTopicoDTO respuestaTopicoDTO = topicoService.registrar(registrarTopicoDTO);
+        URI uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(respuestaTopicoDTO.id()).toUri();
         return ResponseEntity.created(uri).body(respuestaTopicoDTO); // status code 201 created
     }
 

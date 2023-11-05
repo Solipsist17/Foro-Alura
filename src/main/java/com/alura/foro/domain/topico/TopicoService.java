@@ -30,7 +30,7 @@ public class TopicoService {
     }
 
     // no se pueden registrar topicos con autor o curso inexistentes, ni con titulo y mensaje repetido
-    public Topico registrar(RegistrarTopicoDTO datos) {
+    public RespuestaTopicoDTO registrar(RegistrarTopicoDTO datos) {
         if (!usuarioRepository.existsById(datos.idAutor())) {
             throw new IntegrityValidation("Este id para el autor no fue encontrado");
         }
@@ -44,9 +44,7 @@ public class TopicoService {
         var curso = cursoRepository.getReferenceById(datos.idCurso());
         var topico = new Topico(datos.titulo(), datos.mensaje(), usuario, curso);
 
-        topicoRepository.save(topico);
-
-        return topico;
+        return new RespuestaTopicoDTO(topicoRepository.save(topico));
     }
 
     public Page<ListadoTopicoDTO> listar(Pageable paginacion) {
