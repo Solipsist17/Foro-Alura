@@ -60,8 +60,10 @@ public class TopicoService {
         var topico = topicoRepository.getReferenceById(datos.id());
 
         // si se cambia el título o mensaje entonces validaremos
-        if (!datos.titulo().equals(topico.getTitulo()) || !datos.mensaje().equals(topico.getMensaje())) {
-            topicValidators.forEach(v -> v.validar(datos));
+        if (datos.titulo() != null || datos.mensaje() != null) {
+            if (!datos.titulo().equals(topico.getTitulo()) || !datos.mensaje().equals(topico.getMensaje())) {
+                topicValidators.forEach(v -> v.validar(datos));
+            }
         }
         topico.actualizarDatos(datos);
 

@@ -33,4 +33,13 @@ public class Respuesta {
         this.topico = topico;
         this.autor = autor;
     }
+
+    public void actualizarDatos(ActualizarRespuestaDTO datos) {
+        if (datos.mensaje() != null) {
+            this.mensaje = datos.mensaje();
+        }
+        if (datos.solucion() != null) {
+            this.solucion = datos.solucion();
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package com.alura.foro.controllers;
 
 import com.alura.foro.domain.respuesta.*;
+import com.alura.foro.domain.topico.RespuestaTopicoDTO;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +41,10 @@ public class RespuestaController {
         return ResponseEntity.ok(respuestaService.listar(idTopico, paginacion));
     }
 
-
+    @PutMapping
+    @Transactional
+    public ResponseEntity<ResponseRespuestaDTO> actualizar(@RequestBody @Valid ActualizarRespuestaDTO actualizarRespuestaDTO) {
+        return ResponseEntity.ok(respuestaService.actualizar(actualizarRespuestaDTO)); // status code 200
+    }
 
 }

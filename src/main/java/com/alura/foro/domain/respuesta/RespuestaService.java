@@ -41,4 +41,9 @@ public class RespuestaService {
         return respuestaRepository.findAllByTopicoID(idTopico, paginacion).map(respuesta -> new ListadoRespuestaDTO(respuesta));
     }
 
+    public ResponseRespuestaDTO actualizar(ActualizarRespuestaDTO datos) {
+        var respuesta = respuestaRepository.getReferenceById(datos.id());
+        respuesta.actualizarDatos(datos);
+        return new ResponseRespuestaDTO(respuesta);
+    }
 }

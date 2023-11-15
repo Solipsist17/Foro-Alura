@@ -44,8 +44,14 @@ public class Topico {
     }
 
     public void actualizarDatos(ActualizarTopicoDTO actualizarTopicoDTO) {
-        this.titulo = actualizarTopicoDTO.titulo();
-        this.mensaje = actualizarTopicoDTO.mensaje();
-        this.status = actualizarTopicoDTO.status();
+        if (actualizarTopicoDTO.titulo() != null) {
+            this.titulo = actualizarTopicoDTO.titulo();
+        }
+        if (actualizarTopicoDTO.mensaje() != null) {
+            this.mensaje = actualizarTopicoDTO.mensaje();
+        }
+        if (actualizarTopicoDTO.status() != null) {
+            this.status = actualizarTopicoDTO.status();
+        }
     }
 }
