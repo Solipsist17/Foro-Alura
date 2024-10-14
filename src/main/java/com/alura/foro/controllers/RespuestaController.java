@@ -47,4 +47,11 @@ public class RespuestaController {
         return ResponseEntity.ok(respuestaService.actualizar(actualizarRespuestaDTO)); // status code 200
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id) {
+        respuestaService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

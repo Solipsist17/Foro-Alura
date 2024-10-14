@@ -3,6 +3,7 @@ package com.alura.foro.domain.respuesta;
 import com.alura.foro.domain.topico.TopicoRepository;
 import com.alura.foro.domain.usuario.UsuarioRepository;
 import com.alura.foro.infra.errors.exceptions.IntegrityValidation;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,5 +46,14 @@ public class RespuestaService {
         var respuesta = respuestaRepository.getReferenceById(datos.id());
         respuesta.actualizarDatos(datos);
         return new ResponseRespuestaDTO(respuesta);
+    }
+
+    public void eliminar(Long id) {
+        if (!respuestaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Este id para la respuesta no fue encontrada");
+        }
+
+        var respuesta = respuestaRepository.getReferenceById(id);
+        respuestaRepository.delete(respuesta);
     }
 }
