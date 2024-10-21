@@ -1,10 +1,7 @@
 package com.alura.foro.domain.usuario;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "usuarios")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -30,6 +28,18 @@ public class Usuario implements UserDetails {
 
     public Usuario(Long id) {
         this.id = id;
+    }
+
+    public void actualizar(ActualizarUsuarioDTO usuarioDTO) {
+        if (usuarioDTO.nombre() != null) {
+            this.nombre = usuarioDTO.nombre();
+        }
+        if (usuarioDTO.email() != null) {
+            this.email = usuarioDTO.email();
+        }
+        if (usuarioDTO.contrasena() != null) {
+            this.contrasena = usuarioDTO.contrasena();
+        }
     }
 
     @Override
