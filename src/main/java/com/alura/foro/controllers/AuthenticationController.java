@@ -4,6 +4,7 @@ import com.alura.foro.domain.usuario.AuthenticationUsuarioDTO;
 import com.alura.foro.domain.usuario.Usuario;
 import com.alura.foro.infra.security.JwtTokenDTO;
 import com.alura.foro.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,11 @@ public class AuthenticationController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Autenticar al usuario",
+            description = "Operación POST al endpoint /login",
+            tags = {"autenticacion", "post"}
+    )
     public ResponseEntity autenticarUsuario(@RequestBody @Valid AuthenticationUsuarioDTO authenticationUsuarioDTO) {
         // creamos un token
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

@@ -1,6 +1,8 @@
 package com.alura.foro.controllers;
 
 import com.alura.foro.domain.usuario.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
@@ -26,16 +29,31 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Lista los usuarios de la base de datos",
+            description = "Operación GET de la entidad usuarios",
+            tags = {"usuario", "get"}
+    )
     public ResponseEntity<Page<ListadoUsuarioDTO>> consultar(@PageableDefault(size = 5, sort = "id", page=0) Pageable paginacion) {
         return ResponseEntity.ok(usuarioRepository.findAll(paginacion).map(usuario -> new ListadoUsuarioDTO(usuario)));
     }
 
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Detalla un usuario de la base de datos mediante el id",
+            description = "Operación GET de la entidad usuarios",
+            tags = {"usuario", "get"}
+    )
     public ResponseEntity<ListadoUsuarioDTO> consultarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(new ListadoUsuarioDTO(usuarioRepository.getReferenceById(id)));
     }
 
     @PostMapping
+    @Operation(
+            summary = "Crea un usuario nuevo en la base de datos",
+            description = "Operación POST de la entidad usuarios",
+            tags = {"usuario", "post"}
+    )
     public ResponseEntity<RespuestaUsuarioDTO> registrar(@RequestBody RegisterUsuarioDTO registerUsuarioDTO,
                                                                 UriComponentsBuilder uriComponentsBuilder) {
         String rawPasssword = registerUsuarioDTO.contrasena();
@@ -53,6 +71,11 @@ public class UsuarioController {
 
     @PutMapping
     @Transactional
+    @Operation(
+            summary = "Actualiza los usuarios de la base de datos",
+            description = "Operación PUT de la entidad usuarios",
+            tags = {"usuario", "put"}
+    )
     public ResponseEntity<RespuestaUsuarioDTO> actualizar(@RequestBody ActualizarUsuarioDTO actualizarUsuarioDTO) {
         Usuario usuarioModificacion = usuarioRepository.getReferenceById(actualizarUsuarioDTO.id());
 
@@ -66,6 +89,11 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(
+            summary = "Elimina un usuario de la base de datos",
+            description = "Operación DELETE de la entidad usuarios",
+            tags = {"usuario", "delete"}
+    )
     public ResponseEntity<RespuestaUsuarioDTO> eliminar(@PathVariable Long id) {
         Usuario usuario = usuarioRepository.getReferenceById(id);
         usuarioRepository.delete(usuario);
