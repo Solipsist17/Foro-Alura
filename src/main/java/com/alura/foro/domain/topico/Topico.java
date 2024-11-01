@@ -43,6 +43,15 @@ public class Topico {
         this.curso = curso;
     }
 
+    public Topico(RegistrarTopicoDTO dto) {
+        this.titulo = dto.titulo();
+        this.mensaje = dto.mensaje();
+        this.autor = new Usuario();
+        this.curso = new Curso();
+        this.autor.setId(dto.idAutor());
+        this.curso.setId(dto.idCurso());
+    }
+
     public void actualizarDatos(ActualizarTopicoDTO actualizarTopicoDTO) {
         if (actualizarTopicoDTO.titulo() != null) {
             this.titulo = actualizarTopicoDTO.titulo();

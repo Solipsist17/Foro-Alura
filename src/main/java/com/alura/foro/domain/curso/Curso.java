@@ -1,14 +1,12 @@
 package com.alura.foro.domain.curso;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "cursos")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -23,6 +21,11 @@ public class Curso {
     public Curso(String nombre, String categoria) {
         this.nombre = nombre;
         this.categoria = categoria;
+    }
+
+    public Curso(RegistrarCursoDTO dto) {
+        this.nombre = dto.nombre();
+        this.categoria = dto.categoria();
     }
 
     public Curso(Long id) {

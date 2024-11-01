@@ -3,15 +3,14 @@ package com.alura.foro.domain.respuesta;
 import com.alura.foro.domain.topico.Topico;
 import com.alura.foro.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "respuestas")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -32,6 +31,12 @@ public class Respuesta {
         this.mensaje = mensaje;
         this.topico = topico;
         this.autor = autor;
+    }
+
+    public Respuesta(RegistrarRespuestaDTO dto) {
+        this.mensaje = dto.mensaje();
+        this.autor = new Usuario();
+        this.autor.setId(dto.idAutor());
     }
 
     public void actualizarDatos(ActualizarRespuestaDTO datos) {

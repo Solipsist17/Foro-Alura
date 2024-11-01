@@ -30,6 +30,12 @@ public class Usuario implements UserDetails {
         this.id = id;
     }
 
+    public Usuario(RegisterUsuarioDTO dto) {
+        this.nombre = dto.nombre();
+        this.email = dto.email();
+        this.contrasena = dto.contrasena();
+    }
+
     public void actualizar(ActualizarUsuarioDTO usuarioDTO) {
         if (usuarioDTO.nombre() != null) {
             this.nombre = usuarioDTO.nombre();
