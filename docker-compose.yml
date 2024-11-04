@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  app_foro:
+    build: foro
+    deploy:
+      resources:
+        limits: 
+          memory: 512m
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+    ports:
+      - "8080:8080"
+    environment:
+      DATASOURCE_URL: jdbc:mysql://foro:3306/foro_alura?createDatabaseIfNotExist=true&serverTimeZone=UTC
+      DATASOURCE_USERNAME: root
+      DATASOURCE_PASSWORD: 1234
+      JWT_SECRET: 123456
+    restart: always
+    depends_on: 
+      foro: 
+        condition: service_healthy
+  foro:
+    image: mysql:8.0.33
+    ports:
+      - "3307:3306" 
+    environment: 
+      MYSQL_ROOT_PASSWORD: 1234
+      # MYSQL_PASSWORD: 1234
+      # MYSQL_DATABASE: foro_alura
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    # user: "1000:1000"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "foro"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+
+volumes:
+  mysql-data:
